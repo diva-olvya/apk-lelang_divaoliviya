@@ -1,0 +1,106 @@
+<!-- Begin Page Content -->
+<div class="container-fluid">
+
+
+
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <div class="container-fluid">
+
+            <center>
+                <h1 class="h3 mb-2 text-primary-800"><?= $title ?></h1>
+            </center>
+
+
+            <?= $this->session->flashdata('message'); ?>
+
+            <!-- tombol tambah -->
+            <button class="btn btn-sm btn-primary mb-3" data-toggle="modal" data-target="#tambah_petugas" ><i class="fas fa-plus"></i> Register</button>
+
+
+            <table class="table table-bordered table-striped alert alert-primary">
+                <tr>
+                    <th class="text-center">No</th>
+                    <th class="text-center">Nama</th>
+                    <th class="text-center">Username</th>
+                    <th class="text-center">Password</th>
+                    <th class="text-center">Level</th>
+                    <th class="text-center">Action</th>
+                </tr>
+
+                <?php $no = 1;
+                foreach ($petugas as $p) : ?>
+                    <tr>
+                        <td class="text-center"><?= $no++ ?></td>
+                        <td class="text-center"><?= $p->nama_petugas ?></td>
+                        <td class="text-center"><?= $p->username ?></td>
+                        <td class="text-center"><?= $p->password ?></td>
+                        <td class="text-center"><?= $p->id_level ?></td>
+
+
+                        <td class="text-center">
+                            <center>
+                                <a class="btn btn-sm btn-primary mb-2" href="<?= base_url('admin/dataadmin/editregist/' . $p->id_petugas) ?>"><i class="fas fa-edit"></i></a> <br>
+                                <a onclick="return confirm('Apakah Anda Yakin Akan Menghapus Barang Ini?')" class="btn btn-sm btn-danger mb-2" href="<?= base_url('admin/dataadmin/hapus/' . $p->id_petugas) ?>"><i class="fas fa-trash"></i></a>
+
+                            </center>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </table>
+
+        </div>
+    </div>
+</div>
+
+<!-- Modal tambah petugas-->
+<div class="modal fade" id="tambah_petugas" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">FORM REGISTER</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="<?= base_url() . 'admin/dataadmin/tambah_regis' ?>" method="post" enctype="multipart/form-data">
+
+                    <div class="form-group">
+                        <label>Nama </label>
+                        <input type="text" name="nama_petugas" class="form-control" required placeholder="Masukkan petugas">
+                        <?= form_error('nama_petugas', '<div class="text-small text-danger"></div>') ?>
+                    </div>
+                    <div class="form-group">
+                        <label>Username</label>
+                        <input type="text" name="username" class="form-control" required placeholder="Masukkan username">
+                        <?= form_error('username', '<div class="text-small text-danger"></div>') ?>
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="number" name="password" class="form-control" required placeholder="Masukkan password">
+                        <?= form_error('password', '<div class="text-small text-danger"></div>') ?>
+                    </div>
+                    <div class="form-group">
+                        <label >Level</label>
+                        <select name="id_level" class="form-control">
+                            <option value=""> - Pilih Level -</option>
+                            <option value="1"> Admin</option>
+                            <option value="2"> Petugas</option>
+                        </select>
+                    </div>
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                <!-- <a href="<?= base_url() ?>admin/dataadmin" class="btn btn-danger">Kembali</a> <br><br> -->
+                <button type="submit" class="btn btn-primary">Simpan</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
